@@ -29,7 +29,7 @@ const MovieDetails = () => {
     <div className="animate-fade-in">
       <div style={{ display: 'flex', gap: '3rem', flexWrap: 'wrap', marginBottom: '4rem' }}>
         <img 
-          src={movie.poster} 
+          src={movie.poster?.startsWith('http') || movie.poster?.startsWith('/') ? movie.poster : '/' + movie.poster} 
           alt={movie.title} 
           style={{ width: '100%', maxWidth: '350px', borderRadius: '1rem', boxShadow: '0 25px 50px -12px rgba(56, 73, 89, 0.3)', objectFit: 'cover' }} 
           onError={(e) => { e.target.src = 'https://via.placeholder.com/350x550?text=No+Poster' }}

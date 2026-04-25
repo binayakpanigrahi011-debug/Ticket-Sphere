@@ -28,7 +28,7 @@ const HeroCarousel = ({ movies }) => {
           key={movie._id} 
           className={`carousel-slide ${idx === current ? 'active' : ''}`}
           style={{ 
-            backgroundImage: `url(${movie.poster})`,
+            backgroundImage: `url(${movie.poster?.startsWith('http') || movie.poster?.startsWith('/') ? movie.poster : '/' + movie.poster})`,
             backgroundSize: 'cover',
             backgroundPosition: 'top center',
             opacity: idx === current ? 1 : 0,
@@ -128,7 +128,7 @@ const Home = () => {
             <Link to={`/movie/${movie._id}`} key={movie._id} className="card" style={{ display: 'flex', flexDirection: 'column' }}>
               <div style={{ width: '100%', height: '350px', background: 'var(--card-bg)', display: 'flex', justifyContent: 'center' }}>
                 <img 
-                  src={movie.poster} 
+                  src={movie.poster?.startsWith('http') || movie.poster?.startsWith('/') ? movie.poster : '/' + movie.poster} 
                   alt={movie.title} 
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
                   onError={(e) => { e.target.src = 'https://via.placeholder.com/250x350?text=No+Poster' }}

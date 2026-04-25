@@ -17,7 +17,7 @@ const Navbar = () => {
       <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '4rem' }}>
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.5rem', fontWeight: 'bold' }}>
           <Film color="var(--primary-color)" />
-          <span style={{ color: 'white' }}>Quick<span style={{ color: 'var(--primary-color)' }}>Show</span></span>
+          <span style={{ color: 'white' }}>Ticket<span style={{ color: 'var(--primary-color)' }}>Sphere</span></span>
         </Link>
 
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
