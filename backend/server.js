@@ -1,5 +1,4 @@
 const express = require('express');
-<<<<<<< HEAD
 const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -15,6 +14,7 @@ app.get('/', (req, res) => {
   res.send('QuickShow API is running...');
 });
 
+// App routes
 app.use('/api', apiRouter)
 
 app.listen(PORT, (req, res) => {
