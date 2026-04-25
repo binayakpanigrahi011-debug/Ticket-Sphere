@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-// const { MongoMemoryServer } = require("mongodb-memory-server");
 const Movie = require("../models/Movie");
-
+const dns=require("dns")
+dns.setServers['8.8.8.8']
 dotenv.config();
-
 const seedMovies = async () => {
   try {
     const count = await Movie.countDocuments();
@@ -79,8 +78,6 @@ const connectDB = async () => {
         await mongoose.connect(mongoUri, { serverSelectionTimeoutMS: 5000 });
       } catch (err) {
         console.log('Failed to connect to Atlas, falling back to local in-memory MongoDB...');
-        const mongoServer = await MongoMemoryServer.create();
-        mongoUri = mongoServer.getUri();
       }
     }
 
@@ -90,7 +87,6 @@ const connectDB = async () => {
 
     console.log(`Connected to MongoDB: ${mongoUri.includes('127.0.0.1') ? 'Local/Memory' : 'Atlas'}`);
 
-    // Seed the database with initial movies if empty
     await seedMovies();
 
   } catch (err) {
