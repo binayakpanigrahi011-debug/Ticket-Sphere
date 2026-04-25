@@ -35,9 +35,6 @@ const HeroCarousel = ({ movies }) => {
             visibility: idx === current ? 'visible' : 'hidden',
           }}
         >
-          {/* Gradient overlay for readability */}
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(56, 73, 89, 1) 0%, rgba(56, 73, 89, 0.8) 40%, rgba(56, 73, 89, 0) 100%)' }} />
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(56, 73, 89, 1) 0%, rgba(56, 73, 89, 0) 30%)' }} />
 
           {/* Text Content */}
           <div className="carousel-content" style={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 5rem', maxWidth: '800px', zIndex: 10 }}>
