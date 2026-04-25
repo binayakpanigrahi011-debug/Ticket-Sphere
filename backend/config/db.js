@@ -70,7 +70,7 @@ const connectDB = async () => {
   try {
     if (!mongoUri || mongoUri === 'false') {
       console.log('No MONGODB_URI found, starting local in-memory MongoDB...');
-      const mongoServer = await MongoMemoryServer.create();
+      // const mongoServer = await MongoMemoryServer.create();
       mongoUri = mongoServer.getUri();
     } else {
       console.log('Attempting to connect to MONGODB_URI...');

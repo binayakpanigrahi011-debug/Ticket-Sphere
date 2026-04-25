@@ -9,7 +9,7 @@ const Footer = () => {
         <div>
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>
             <Film color="var(--primary-color)" />
-            <span>Quick<span style={{ color: 'var(--primary-color)' }}>Show</span></span>
+            <span>Ticket<span style={{ color: 'var(--primary-color)' }}>Sphere</span></span>
           </Link>
           <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>
             Your premium destination for movie ticket bookings. Experience cinematic magic with real-time seat tracking and seamless bookings.

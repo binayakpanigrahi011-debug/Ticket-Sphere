@@ -41,7 +41,7 @@ const MyBookings = () => {
               {/* Main Ticket Info */}
               <div className="ticket-main">
                 <img 
-                  src={booking.movie?.poster || 'https://via.placeholder.com/150'} 
+                  src={booking.movie?.poster ? (booking.movie.poster.startsWith('http') || booking.movie.poster.startsWith('/') ? booking.movie.poster : '/' + booking.movie.poster) : 'https://via.placeholder.com/150'} 
                   alt={booking.movie?.title || 'Unknown'} 
                   style={{ width: '130px', height: '180px', objectFit: 'cover', borderRadius: '0.5rem', boxShadow: '0 4px 6px rgba(106,137,167,0.3)' }} 
                 />
