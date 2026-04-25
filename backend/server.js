@@ -9,12 +9,10 @@ const apiRouter=require('./routes/apiRoutes')
 app.use(cors());
 app.use(express.json());
 
-// Main route
 app.get('/', (req, res) => {
   res.send('QuickShow API is running...');
 });
 
-// App routes
 app.use('/api',apiRouter)
 
 app.listen(PORT,(req,res)=>{
