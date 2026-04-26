@@ -6,14 +6,6 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 const HeroCarousel = ({ movies }) => {
   const [current, setCurrent] = useState(0);
 
-  useEffect(() => {
-    if (movies.length === 0) return;
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % Math.min(movies.length, 5));
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [movies]);
-
   if (movies.length === 0) return null;
 
   const topMovies = movies.slice(0, 5); // Show top 5 in carousel
