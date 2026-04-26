@@ -21,8 +21,6 @@ const Footer = () => {
           <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', color: 'var(--text-muted)' }}>
             <li><Link to="/" className="hover:text-white transition-colors">Now Showing</Link></li>
             <li><Link to="/mybookings" className="hover:text-white transition-colors">My Bookings</Link></li>
-            <li><Link to="#" className="hover:text-white transition-colors">Gift Cards</Link></li>
-            <li><Link to="#" className="hover:text-white transition-colors">Offers</Link></li>
           </ul>
         </div>
 
@@ -36,7 +34,7 @@ const Footer = () => {
       </div>
       
       <div className="container" style={{ textAlign: 'center', marginTop: '3rem', paddingTop: '1.5rem', borderTop: '1px solid rgba(106, 137, 167, 0.2)', color: 'var(--text-muted)', fontSize: '0.875rem' }}>
-        &copy; {new Date().getFullYear()} QuickShow India. All rights reserved. Built as a mock application.
+        &copy; {new Date().getFullYear()} TicketSphere India. All rights reserved.
       </div>
     </footer>
   );
