@@ -25,24 +25,27 @@ const Login = () => {
       <h2 className="form-title">Welcome Back</h2>
       {error && <div className="error-msg">{error}</div>}
       <form onSubmit={handleSubmit}>
-        <input 
-          type="email" 
-          placeholder="Email address" 
-          className="input-field" 
+        <input
+          type="email"
+          placeholder="Email address"
+          className="input-field"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <input 
-          type="password" 
-          placeholder="Password" 
-          className="input-field" 
+        <input
+          type="password"
+          placeholder="Password"
+          className="input-field"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
         <button type="submit" className="btn btn-accent" style={{ width: '100%' }}>Login</button>
       </form>
+      <p style={{ textAlign: 'center', marginTop: '1rem', color: 'var(--text-muted)' }}>
+        <Link to="/forgot-password" style={{ color: 'var(--primary-color)' }}>Forgot Password?</Link>
+      </p>
       <p style={{ textAlign: 'center', marginTop: '1rem', color: 'var(--text-muted)' }}>
         Don't have an account? <Link to="/register" style={{ color: 'var(--primary-color)' }}>Register here</Link>
       </p>

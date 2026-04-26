@@ -55,7 +55,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await axios.post('/auth/logout');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
     setToken(null);
     setUser(null);
     localStorage.removeItem('token');
@@ -63,8 +68,26 @@ export const AuthProvider = ({ children }) => {
     delete axios.defaults.headers.common['Authorization'];
   };
 
+  const forgotPassword = async (email) => {
+    try {
+      const res = await axios.post('/auth/forgot-password', { email });
+      return { success: true, message: res.data.message };
+    } catch (error) {
+      return { success: false, message: error.response?.data?.message || 'Request failed' };
+    }
+  };
+
+  const resetPassword = async (token, password) => {
+    try {
+      const res = await axios.post(`/auth/reset-password/${token}`, { password });
+      return { success: true, message: res.data.message };
+    } catch (error) {
+      return { success: false, message: error.response?.data?.message || 'Reset failed' };
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, token, loading, login, register, logout, forgotPassword, resetPassword }}>
       {children}
     </AuthContext.Provider>
   );

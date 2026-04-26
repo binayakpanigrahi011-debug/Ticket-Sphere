@@ -5,6 +5,8 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import MovieDetails from './pages/MovieDetails';
 import SeatSelection from './pages/SeatSelection';
 import MyBookings from './pages/MyBookings';
@@ -33,36 +35,38 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<div className="container" style={{ padding: '2rem 1rem' }}><Login /></div>} />
           <Route path="/register" element={<div className="container" style={{ padding: '2rem 1rem' }}><Register /></div>} />
+          <Route path="/forgot-password" element={<div className="container" style={{ padding: '2rem 1rem' }}><ForgotPassword /></div>} />
+          <Route path="/reset-password/:token" element={<div className="container" style={{ padding: '2rem 1rem' }}><ResetPassword /></div>} />
           <Route path="/movie/:id" element={<div className="container" style={{ padding: '2rem 1rem' }}><MovieDetails /></div>} />
-          <Route 
-            path="/book/:id" 
+          <Route
+            path="/book/:id"
             element={
               <ProtectedRoute>
                 <div className="container" style={{ padding: '2rem 1rem' }}>
                   <SeatSelection />
                 </div>
               </ProtectedRoute>
-            } 
+            }
           />
-          <Route 
-            path="/mybookings" 
+          <Route
+            path="/mybookings"
             element={
               <ProtectedRoute>
                 <div className="container" style={{ padding: '2rem 1rem' }}>
                   <MyBookings />
                 </div>
               </ProtectedRoute>
-            } 
+            }
           />
-          <Route 
-            path="/admin" 
+          <Route
+            path="/admin"
             element={
               <AdminRoute>
                 <div className="container" style={{ padding: '2rem 1rem' }}>
                   <Admin />
                 </div>
               </AdminRoute>
-            } 
+            }
           />
         </Routes>
       </main>
