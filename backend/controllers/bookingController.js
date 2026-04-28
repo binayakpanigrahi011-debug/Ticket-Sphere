@@ -64,10 +64,11 @@ const getAllbooking = async (req, res) => {
 const getBookedSeats = async (req, res) => {
   try {
     const { movieId, timing } = req.params;
+    const Normaltiming = decodeURIComponent(timing).trim();
 
     const bookings = await Booking.find({
       movie: movieId,
-      showTiming: timing
+      showTiming: Normaltiming
     });
 
     const bookedSeats = bookings.flatMap(booking => booking.seats);
