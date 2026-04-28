@@ -12,12 +12,13 @@ const SeatSelection = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  
+
   const [movie, setMovie] = useState(null);
   const [selectedTime, setSelectedTime] = useState('');
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [bookingLoading, setBookingLoading] = useState(false);
+  const [bookedSeats, setBookedSeats] = useState([]);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -35,6 +36,22 @@ const SeatSelection = () => {
     };
     fetchMovie();
   }, [id]);
+  useEffect(() => {
+    const fetchBookedSeats = async () => {
+      if (!selectedTime) return;
+
+      try {
+        const res = await axios.get(
+          `/bookings/seats/${id}/${encodeURIComponent(selectedTime)}`
+        );
+        setBookedSeats(res.data);
+      } catch (error) {
+        console.error("Error fetching booked seats", error);
+      }
+    };
+
+    fetchBookedSeats();
+  }, [id, selectedTime]);
 
   const toggleSeat = (seatId) => {
     if (selectedSeats.includes(seatId)) {
@@ -46,7 +63,7 @@ const SeatSelection = () => {
 
   const handleBooking = async () => {
     if (selectedSeats.length === 0) return alert('Please select at least one seat');
-    
+
     setBookingLoading(true);
     try {
       await axios.post('/bookings', {
@@ -70,13 +87,13 @@ const SeatSelection = () => {
     <div className="animate-fade-in">
       <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Book Tickets: {movie.title}</h2>
       <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Ticket Price: ₹{TICKET_PRICE} (Executive)</p>
-      
+
       <div style={{ marginBottom: '2.5rem' }}>
         <h4 style={{ marginBottom: '1rem', fontSize: '1.2rem' }}>1. Select Show Timing</h4>
         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
           {movie.showTimings.map(time => (
-            <button 
-              key={time} 
+            <button
+              key={time}
               onClick={() => setSelectedTime(time)}
               className={selectedTime === time ? 'btn btn-accent' : 'btn btn-outline'}
               style={{ fontSize: '1rem' }}
@@ -89,7 +106,7 @@ const SeatSelection = () => {
 
       <div style={{ marginBottom: '3rem' }}>
         <h4 style={{ marginBottom: '1.5rem', textAlign: 'center', fontSize: '1.2rem' }}>2. Choose Your Seats</h4>
-        
+
         <div style={{ background: 'var(--card-bg)', padding: '2rem 1rem', borderRadius: '0.5rem', maxWidth: '800px', margin: '0 auto', overflowX: 'auto', border: '1px solid var(--primary-color)' }}>
           {/* Screen */}
           <div style={{ padding: '0.5rem', background: 'rgba(106, 137, 167, 0.2)', marginBottom: '2rem', textAlign: 'center', fontSize: '0.9rem', color: 'var(--primary-color)', letterSpacing: '2px', borderRadius: '4px', fontWeight: 'bold' }}>
@@ -104,23 +121,38 @@ const SeatSelection = () => {
                   {[...Array(SEATS_PER_ROW)].map((_, i) => {
                     const seatId = `${row}${i + 1}`;
                     const isSelected = selectedSeats.includes(seatId);
-                    
+                    const isBooked = bookedSeats.includes(seatId);
                     // Add aisle gap after 5th seat
                     const isAisle = i === 4;
-                    
+
                     return (
                       <React.Fragment key={seatId}>
                         <button
-                          onClick={() => toggleSeat(seatId)}
+                          onClick={() => !isBooked && toggleSeat(seatId)}
+                          disabled={isBooked}
                           style={{
-                            width: '35px', height: '35px', 
+                            width: '35px',
+                            height: '35px',
                             borderRadius: '4px',
                             border: 'none',
-                            cursor: 'pointer',
-                            background: isSelected ? 'var(--primary-color)' : 'rgba(106, 137, 167, 0.2)',
-                            color: isSelected ? '#fff' : 'var(--primary-color)',
+
+                            cursor: isBooked ? 'not-allowed' : 'pointer',
+
+                            background: isBooked
+                              ? '#444' // 🔴 booked seats
+                              : isSelected
+                                ? 'var(--primary-color)'
+                                : 'rgba(106, 137, 167, 0.2)',
+
+                            color: isBooked
+                              ? '#aaa'
+                              : isSelected
+                                ? '#fff'
+                                : 'var(--primary-color)',
+
                             fontSize: '0.8rem',
                             fontWeight: 'bold',
+                            opacity: isBooked ? 0.6 : 1,
                             transition: 'background 0.2s'
                           }}
                         >
@@ -142,10 +174,10 @@ const SeatSelection = () => {
           <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)' }}>Selected Seats: <strong style={{ color: 'var(--text-color)' }}>{selectedSeats.length > 0 ? selectedSeats.join(', ') : 'None'}</strong></p>
           <p style={{ fontSize: '1.8rem', marginTop: '0.5rem', fontWeight: 'bold' }}>Total: <strong style={{ color: 'var(--accent-color)' }}>₹{selectedSeats.length * TICKET_PRICE}</strong></p>
         </div>
-        <button 
-          onClick={handleBooking} 
+        <button
+          onClick={handleBooking}
           disabled={selectedSeats.length === 0 || bookingLoading}
-          className="btn btn-accent" 
+          className="btn btn-accent"
           style={{ padding: '1rem 3rem', fontSize: '1.2rem', opacity: selectedSeats.length === 0 ? 0.5 : 1, display: 'flex', alignItems: 'center', gap: '0.5rem' }}
         >
           <Ticket /> {bookingLoading ? 'Processing...' : 'Confirm Booking'}

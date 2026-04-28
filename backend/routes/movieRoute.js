@@ -30,4 +30,6 @@ router.post('/', protect, admin, upload.single("poster"), movieController.create
 // @access  Private/Admin
 router.delete('/:id', protect, admin, movieController.deleteMovie);
 
+
+
 module.exports = router;

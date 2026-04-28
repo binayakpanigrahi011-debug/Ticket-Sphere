@@ -15,4 +15,5 @@ router.get('/mybookings', protect, bookingController.getmyBookings);
 // @access  Private/Admin
 router.get('/', protect, admin, bookingController.getAllbooking);
 
+router.get("/seats/:movieId/:timing", bookingController.getBookedSeats);
 module.exports = router;
