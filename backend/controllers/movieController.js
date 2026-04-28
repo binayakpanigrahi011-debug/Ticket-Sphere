@@ -24,11 +24,17 @@ const getSingleMovie=async (req, res) => {
 
 const createMovie = async (req, res) => {
     try {
-      const { title, duration, genre, showTimings } = req.body;
+      const { title,description, duration, genre, showTimings } = req.body;
+      if (!title||!description||!duration||!genre||!showTimings){
+        return res.status(400).json({
+          message:"title, duration,description, genre, showTimings  are required"
+        })
+
+      }
       
       let posterUrl = '';
       if (req.file && req.file.path) {
-        posterUrl = req.file.path;
+        posterUrl = `/posters/${req.file.filename}`;
       } else {
         return res.status(400).json({ message: 'Poster image is required' });
       }
@@ -41,6 +47,7 @@ const createMovie = async (req, res) => {
       
       const movie = new Movie({
         title,
+        description,
         poster: posterUrl,
         duration,
         genre,
@@ -50,6 +57,7 @@ const createMovie = async (req, res) => {
       const createdMovie = await movie.save();
       res.status(201).json(createdMovie);
     } catch (error) {
+      console.log(error)
       res.status(500).json({ message: 'Server Error', error: error.message });
     }
   }

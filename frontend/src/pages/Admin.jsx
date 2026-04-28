@@ -5,7 +5,7 @@ const Admin = () => {
   const [movies, setMovies] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [formData, setFormData] = useState({
-    title: '', duration: '', genre: '', showTimings: '10:00 AM, 02:00 PM'
+    title: '', duration: '', genre: '', description:'',showTimings: '10:00 AM, 02:00 PM'
   });
   const [posterFile, setPosterFile] = useState(null);
 
@@ -32,19 +32,23 @@ const Admin = () => {
 
     const data = new FormData();
     data.append('title', formData.title);
+    data.append('description',formData.description)
     data.append('duration', formData.duration);
     data.append('genre', formData.genre);
-    data.append('showTimings', formData.showTimings); // We parse this string in the backend
+    data.append('showTimings', formData.showTimings);
     data.append('poster', posterFile);
 
     try {
-      await axios.post('/movies', data, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
+      console.log(data)
+      await axios.post('/movies', data, 
+        // {
+        // headers: {
+        //   'Content-Type': 'multipart/form-data'
+        // }
+      // }
+    );
       fetchDocs();
-      setFormData({ title: '', duration: '', genre: '', showTimings: '10:00 AM, 02:00 PM' });
+      setFormData({ title: '', duration: '', genre: '',description:'', showTimings: '10:00 AM, 02:00 PM' });
       setPosterFile(null);
       // Reset the file input manually by resetting the form
       e.target.reset();
@@ -77,6 +81,7 @@ const Admin = () => {
           <h3 style={{ marginBottom: '1rem' }}>Add New Movie</h3>
           <form onSubmit={handleAddMovie}>
             <input className="input-field" type="text" placeholder="Title" value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} required />
+            <input className="input-field" type="text" placeholder="Description" value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} required />
             <input className="input-field" type="file" accept="image/*" onChange={e => setPosterFile(e.target.files[0])} required />
             <input className="input-field" type="text" placeholder="Duration (e.g. 2h 15m)" value={formData.duration} onChange={e => setFormData({...formData, duration: e.target.value})} required />
             <input className="input-field" type="text" placeholder="Genre" value={formData.genre} onChange={e => setFormData({...formData, genre: e.target.value})} required />
