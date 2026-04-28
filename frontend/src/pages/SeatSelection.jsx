@@ -6,7 +6,7 @@ import { Ticket } from 'lucide-react';
 
 const SEAT_ROWS = ['A', 'B', 'C', 'D', 'E', 'F'];
 const SEATS_PER_ROW = 10;
-const TICKET_PRICE = 250; // INR 250
+const TICKET_PRICE = 250;
 
 const SeatSelection = () => {
   const { id } = useParams();

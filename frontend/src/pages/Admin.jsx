@@ -104,7 +104,7 @@ const Admin = () => {
               {bookings.map(booking => (
                 <div key={booking._id} style={{ padding: '0.5rem 0', borderBottom: '1px solid rgba(106, 137, 167, 0.2)', fontSize: '0.9rem' }}>
                   <strong>{booking.user?.name || 'Unknown User'}</strong> booked <strong>{booking.movie?.title || 'Unknown'}</strong> <br/>
-                  Timing: {booking.showTiming} | Seats: {booking.seats.join(', ')} | ${booking.totalCost}
+                  Timing: {booking.showTiming} | Seats: {booking.seats.join(', ')} | ₹ {booking.totalCost}
                 </div>
               ))}
             </div>
